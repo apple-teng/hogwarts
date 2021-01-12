@@ -1,0 +1,8 @@
+- a
+- b
+- find: //*[@]
+  action: send
+  cont: 123
+
+- find: //*[@]
+  action: click
