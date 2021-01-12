@@ -1,15 +1,10 @@
 from appium import webdriver
 from po_ecovacs.ecovacs_page.login_type_page import LoginType
 from appium.webdriver.webdriver import WebDriver
+from po_ecovacs.basepage import BasePage
 
 
-class AppConfig:
-    def __init__(self, driver: WebDriver = None):
-        """
-        初始化driver
-        :param driver:
-        """
-        self.driver = driver
+class AppConfig(BasePage):
 
     def start_app(self):
         if self.driver is None:
