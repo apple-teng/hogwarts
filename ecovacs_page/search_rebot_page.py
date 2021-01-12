@@ -1,14 +1,11 @@
 from appium.webdriver.common.mobileby import MobileBy
 from selenium.webdriver.support.wait import WebDriverWait
 
-from appium.webdriver.webdriver import WebDriver
 import time
+from po_ecovacs.basepage import BasePage
 
 
-class SearchRobot:
-    def __init__(self, driver: WebDriver = None):
-        self.driver = driver
-        print("进入添加机器人页面")
+class SearchRobot(BasePage):
 
     def click_popmsg(self):
         # print(self.driver.page_source)
@@ -34,10 +31,10 @@ class SearchRobot:
         :param robot_type:
         :return:
         """
-        self.driver.find_element_by_id("com.eco.global.app:id/btn_add_robot").click()
-        self.click_popmsg()
-        self.driver.find_element_by_id('com.eco.global.app:id/search_edit').click()
-        self.driver.find_element_by_id("com.eco.global.app:id/edit_search").send_keys(robot_type)
+        self.find_and_click(MobileBy.ID, 'com.eco.global.app:id/search_edit')
+        # self.driver.find_element_by_id('com.eco.global.app:id/search_edit').click()
+        self.find_send(MobileBy.ID, "com.eco.global.app:id/edit_search", robot_type)
+        # self.driver.find_element_by_id("com.eco.global.app:id/edit_search").send_keys(robot_type)
         print(self.driver.find_element_by_xpath(f"//*[@text='{robot_type}']"))
         self.driver.find_element_by_xpath(f"//*[@text='{robot_type}']").click()
 

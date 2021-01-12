@@ -23,6 +23,5 @@ from po_ecovacs.ecovacs_page.app_config import AppConfig
 
 app = AppConfig()
 app.start_app().goto_login_type_page().\
-    first_page().\
-    choose_login_type('phone_num').\
-    add_username_pwd('15190019467', '123456')
+    first_page().choose_phone_login().\
+    add_username_pwd('15190019467', '123456').add_robot().search_robot('T9')

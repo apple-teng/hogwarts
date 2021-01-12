@@ -2,15 +2,23 @@ from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 
+from po_ecovacs.black_handle import BlackList
+
 
 class BasePage:
     def __init__(self, driver: WebDriver = None):
         self.driver = driver
 
+    @BlackList.black_wrapper_click()
     def find(self, by, locator):
         self.driver.find_element(by, locator)
 
+    def finds(self, by, locator):
+        self.driver.find_elements(by, locator)
+
+    @BlackList.black_wrapper_click
     def find_and_click(self, by, locator):
+        # self.find(by, locator).click()
         self.driver.find_element(by, locator).click()
 
     def scroll_find(self, text):
@@ -37,13 +45,14 @@ class BasePage:
         self.scroll_find(by, locator).click()
 
     def find_send(self, by, locator, text):
-        self.find(by, locator).send_keys(text)
+        # self.find(by, locator).send_keys(text)
+        self.driver.find_element(by, locator).send_keys(text)
 
     def wait_for(self, by, locator):
         def wait_ele_for(driver: WebDriver):
             eles = driver.find_elements(by, locator)
             return len(eles) > 0
-        WebDriverWait(self.driver, 10).until(wait_ele_for)
+        WebDriverWait(self.driver, 20).until(wait_ele_for)
 
     def get_toast_text(self):
         result = self.find(MobileBy.XPATH, "//*[@class='android.widget.Toast']").text
